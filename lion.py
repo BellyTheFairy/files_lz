@@ -5,8 +5,8 @@ doc = docx.Document('lion.docx')    #открываем документ
 text = []
 letters = {}
 
-word = str(input(''))
-letter = str(input(''))
+word = str(input())
+letter = str(input())
 
 for pr in doc.paragraphs:    
     text.append(pr.text)
@@ -47,4 +47,5 @@ table.cell(0, 2).text = "Частота встречи в %"
 table.cell(1, 0).text = str(word)
 table.cell(1, 1).text = str(total_words)
 table.cell(1, 2).text = str(perc_1)
+
 
