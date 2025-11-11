@@ -1,51 +1,48 @@
-import matplotlib
+import matplotlib.pyplot as plt
 import docx
 
+doc = docx.Document('lion.docx')    #открываем документ
+text = []
+letters = {}
 
-doc = docx.Document("lion.docx")    #открываем документ 
+word = str(input(''))
+letter = str(input(''))
 
+for pr in doc.paragraphs:    
+    text.append(pr.text)
 
-word = input("Введите слово - ")     #импортируем слово и букву для полсчета
-letter = input("Введите букву - ")
-count1 = 0    #считчик для упоминаний слова
-count2 = 0    #счетчик для буквы
+text = text.lower()
 
-text = ""
-for para in doc.paragraphs:
-    text += para.text + " "
+total_words = text.count(word)
 
-text = text.lower()    #приводим текст к нижнему регистру для удобства
-
-a = text.split()     #считаем количество упоминаний слова
-
-for w in a:
-    if w == word.lower():
-        count1 += 1
-
-for ch in text:
-    if ch == letter.lower():
-        count2 += 1
+perc_1 = ((total_words / len(text))*100)
 
 
-total_words = len(words)    #количество слов в тексте 
-total_letters = len(text)    #количество букв в тексте
+for i in text:    #цикл для нахождения букв в тексте
+    for l in i:
+        if l in letters:
+            letters[l] += 1
+        
+        else:
+            letters.update({l:1})
+          
+plt.bar(keys, values)     #создаем график 
 
-word_percent = (word_count / total_words * 100) 
-letter_percent = (letter_count / total_letters * 100) 
+keys = list(letters.keys())    #создаем оси для графика
+values = list(letters.values())
 
-data = [                                                     # Таблица для matplotlib
-    ["Слово", word, word_count, f"{word_percent:.2f}%"]
-]
 
-fig, ax = plt.subplots()
-ax.axis("off")
+plt.xlabel("Буквы")    
+plt.ylabel("Количество")
+plt.title("Гистограмма количества букв")
 
-table = ax.table(
-    cellText=data,
-    colLabels=["Слово", "Частота встречи, раз", "Частота встречи, в %"],
-)
+plt.show()    #показ графика
 
-table.auto_set_font_size(False)
-table.set_fontsize(12)
-table.scale(1.2, 1.5)
-plt.show()
+table = dox.add_table(rows = 2, cols = 3)    #создаем таблицу
+
+table.cell(0, 0).text = "Слово"
+table.cell(0, 1).text = "Частота встречи, раз"
+table.cell(0, 2).text = "Частота встречи в %"
+table.cell(1, 0).text = str(word)
+table.cell(1, 1).text = str(total_words)
+table.cell(1, 2).text = str(perc_1)
