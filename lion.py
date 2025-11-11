@@ -11,11 +11,11 @@ letter = str(input())
 for pr in doc.paragraphs:    
     text.append(pr.text)
 
-text = text.lower()
+text = " ".join(text).lower()
 
 total_words = text.count(word)
 
-perc_1 = ((total_words / len(text))*100)
+perc_1 = (total_words / len(text.split()))*100
 
 
 for i in text:    #цикл для нахождения букв в тексте
@@ -39,7 +39,7 @@ plt.title("Гистограмма количества букв")
 
 plt.show()    #показ графика
 
-table = doсx.add_table(rows = 2, cols = 3)    #создаем таблицу
+table = doc.add_table(rows = 2, cols = 3)    #создаем таблицу
 
 table.cell(0, 0).text = "Слово"
 table.cell(0, 1).text = "Частота встречи, раз"
@@ -47,5 +47,7 @@ table.cell(0, 2).text = "Частота встречи в %"
 table.cell(1, 0).text = str(word)
 table.cell(1, 1).text = str(total_words)
 table.cell(1, 2).text = str(perc_1)
+
+doc.save('lion.docx')
 
 
